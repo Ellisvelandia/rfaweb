@@ -174,9 +174,9 @@ export default function GroqChatbot() {
       </div>
 
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 z-50 w-[350px] sm:w-[400px] shadow-lg border border-gray-200">
+        <Card className="fixed bottom-6 right-6 z-50 w-[350px] sm:w-[400px] shadow-lg border border-gray-200" role="dialog" aria-modal="true" aria-labelledby="chat-title">
           <CardHeader className="bg-primary text-white py-4 flex flex-row items-center justify-between">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="text-lg flex items-center gap-2" id="chat-title">
               <Icon icon="mdi:robot" width="24" height="24" />
               Asistente RFA
             </CardTitle>
@@ -185,6 +185,7 @@ export default function GroqChatbot() {
               size="icon"
               onClick={() => setIsOpen(false)}
               className="text-white hover:bg-primary/90"
+              aria-label="Cerrar chat"
             >
               <X className="h-5 w-5" />
             </Button>
