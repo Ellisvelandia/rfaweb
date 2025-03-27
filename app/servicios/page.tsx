@@ -1,9 +1,61 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Dumbbell, Utensils, ListChecks, Stethoscope } from "lucide-react"
+import { Dumbbell, Utensils, ListChecks, Stethoscope, ChevronDown } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip"
 
 export default function ServiciosPage() {
+  const [activeSection, setActiveSection] = useState("programas")
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if page is scrolled
+      setIsScrolled(window.scrollY > 100)
+      
+      // Determine active section based on scroll position
+      const sections = ["programas", "entrenamiento", "nutricion", "rehabilitacion"]
+      
+      for (const sectionId of sections) {
+        const section = document.getElementById(sectionId)
+        if (section) {
+          const rect = section.getBoundingClientRect()
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            setActiveSection(sectionId)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId)
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 100,
+        behavior: "smooth"
+      })
+    }
+  }
+
   return (
     <div className="container py-12">
       <div className="max-w-4xl mx-auto">
@@ -13,6 +65,120 @@ export default function ServiciosPage() {
             En RFA ofrecemos una amplia gama de servicios especializados en recuperación física y acondicionamiento,
             adaptados a las necesidades específicas de cada paciente.
           </p>
+        </div>
+
+        {/* Sticky Service Navigation */}
+        <div className={`sticky top-16 z-30 py-3 bg-background ${isScrolled ? 'shadow-md' : ''} mb-8 transition-all duration-200`}>
+          <div className="flex justify-between items-center">
+            <div className="md:hidden">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <span className="capitalize">{activeSection}</span>
+                    <ChevronDown className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  <DropdownMenuItem onSelect={() => scrollToSection("programas")}>
+                    Programas
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => scrollToSection("entrenamiento")}>
+                    Entrenamiento
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => scrollToSection("nutricion")}>
+                    Nutrición
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => scrollToSection("rehabilitacion")}>
+                    Rehabilitación Física
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            <div className="hidden md:flex space-x-1">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant={activeSection === "programas" ? "default" : "outline"} 
+                      size="sm"
+                      onClick={() => scrollToSection("programas")}
+                      className="flex items-center gap-2"
+                    >
+                      <ListChecks className="h-4 w-4" />
+                      <span>Programas</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Programas personalizados</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant={activeSection === "entrenamiento" ? "default" : "outline"} 
+                      size="sm"
+                      onClick={() => scrollToSection("entrenamiento")}
+                      className="flex items-center gap-2"
+                    >
+                      <Dumbbell className="h-4 w-4" />
+                      <span>Entrenamiento</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Entrenamiento personalizado</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant={activeSection === "nutricion" ? "default" : "outline"} 
+                      size="sm"
+                      onClick={() => scrollToSection("nutricion")}
+                      className="flex items-center gap-2"
+                    >
+                      <Utensils className="h-4 w-4" />
+                      <span>Nutrición</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Asesoría nutricional</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant={activeSection === "rehabilitacion" ? "default" : "outline"} 
+                      size="sm"
+                      onClick={() => scrollToSection("rehabilitacion")}
+                      className="flex items-center gap-2"
+                    >
+                      <Stethoscope className="h-4 w-4" />
+                      <span>Rehabilitación</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Rehabilitación física</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+
+            <div className="flex-1 md:flex-none">
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/contacto">Solicitar información</Link>
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="grid gap-12">
@@ -51,11 +217,11 @@ export default function ServiciosPage() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/placeholder.svg?height=300&width=500&text=Programas"
-                  alt="Programas"
+                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop"
+                  alt="Programas de rehabilitación"
                   width={500}
                   height={300}
-                  className="rounded-lg w-full h-auto"
+                  className="rounded-lg w-full h-auto object-cover aspect-[5/3]"
                 />
               </div>
             </div>
@@ -96,11 +262,11 @@ export default function ServiciosPage() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/placeholder.svg?height=300&width=500&text=Entrenamiento"
-                  alt="Entrenamiento"
+                  src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=2070&auto=format&fit=crop"
+                  alt="Entrenamiento personalizado"
                   width={500}
                   height={300}
-                  className="rounded-lg w-full h-auto"
+                  className="rounded-lg w-full h-auto object-cover aspect-[5/3]"
                 />
               </div>
             </div>
@@ -141,11 +307,11 @@ export default function ServiciosPage() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/placeholder.svg?height=300&width=500&text=Nutrición"
-                  alt="Nutrición"
+                  src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=2070&auto=format&fit=crop"
+                  alt="Nutrición deportiva"
                   width={500}
                   height={300}
-                  className="rounded-lg w-full h-auto"
+                  className="rounded-lg w-full h-auto object-cover aspect-[5/3]"
                 />
               </div>
             </div>
@@ -187,11 +353,11 @@ export default function ServiciosPage() {
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src="/placeholder.svg?height=300&width=500&text=Rehabilitación"
+                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop"
                   alt="Rehabilitación Física"
                   width={500}
                   height={300}
-                  className="rounded-lg w-full h-auto"
+                  className="rounded-lg w-full h-auto object-cover aspect-[5/3]"
                 />
               </div>
             </div>

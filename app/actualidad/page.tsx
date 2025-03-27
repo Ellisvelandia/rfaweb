@@ -20,6 +20,7 @@ const articles = [
     comments: 8,
     category: "rehabilitacion",
     slug: "beneficios-rehabilitacion-temprana",
+    image: "https://images.unsplash.com/photo-1666214277730-e9c7e755e5a5?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ const articles = [
     comments: 12,
     category: "nutricion",
     slug: "nutricion-deportistas",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 3,
@@ -40,6 +42,7 @@ const articles = [
     comments: 5,
     category: "entrenamiento",
     slug: "ejercicios-prevenir-lesiones-rodilla",
+    image: "https://images.unsplash.com/photo-1434682881908-b43d0467b798?q=80&w=2074&auto=format&fit=crop"
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const articles = [
     comments: 15,
     category: "rehabilitacion",
     slug: "recuperacion-lesion-deportiva",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 5,
@@ -61,6 +65,7 @@ const articles = [
     comments: 7,
     category: "nutricion",
     slug: "alimentos-reducir-inflamacion",
+    image: "https://images.unsplash.com/photo-1533655695787-1cc2c79901b4?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 6,
@@ -71,6 +76,7 @@ const articles = [
     comments: 3,
     category: "programas",
     slug: "entrenamiento-adultos-mayores",
+    image: "https://images.unsplash.com/photo-1556889882-73ea40694a17?q=80&w=2070&auto=format&fit=crop"
   },
 ]
 
@@ -127,7 +133,7 @@ export default function ActualidadPage() {
                 <div className="md:flex">
                   <div className="md:w-1/3">
                     <Image
-                      src={`/placeholder.svg?height=200&width=300&text=${article.title}`}
+                      src={article.image}
                       alt={article.title}
                       width={300}
                       height={200}

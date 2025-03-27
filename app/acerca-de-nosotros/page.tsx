@@ -36,11 +36,11 @@ export default function AcercaDeNosotrosPage() {
             </div>
             <div className="md:w-1/2">
               <Image
-                src="/placeholder.svg?height=300&width=500&text=Nuestra Historia"
+                src="https://images.unsplash.com/photo-1576858574144-9ae1ebcfccb6?q=80&w=2070&auto=format&fit=crop"
                 alt="Historia de RFA"
                 width={500}
                 height={300}
-                className="rounded-lg w-full h-auto"
+                className="rounded-lg w-full h-auto object-cover aspect-[5/3]"
               />
             </div>
           </div>
@@ -103,21 +103,52 @@ export default function AcercaDeNosotrosPage() {
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-8 text-center">Nuestro Equipo</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+            {[
+              {
+                name: "Dr. Carlos Rodríguez",
+                role: "Fisioterapeuta",
+                image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop"
+              },
+              {
+                name: "Dra. Ana Martínez",
+                role: "Nutricionista",
+                image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=2687&auto=format&fit=crop"
+              },
+              {
+                name: "Luis García",
+                role: "Entrenador Personal",
+                image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=1974&auto=format&fit=crop"
+              },
+              {
+                name: "María González",
+                role: "Fisioterapeuta",
+                image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop"
+              },
+              {
+                name: "Dr. Javier Torres",
+                role: "Médico Deportivo",
+                image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop"
+              },
+              {
+                name: "Laura Sánchez",
+                role: "Psicóloga Deportiva",
+                image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop"
+              }
+            ].map((person, i) => (
               <div key={i} className="flex flex-col items-center text-center">
-                <div className="mb-4 rounded-full overflow-hidden">
+                <div className="mb-4 rounded-full overflow-hidden w-32 h-32">
                   <Image
-                    src={`/placeholder.svg?height=150&width=150&text=Profesional ${i}`}
-                    alt={`Profesional ${i}`}
+                    src={person.image}
+                    alt={person.name}
                     width={150}
                     height={150}
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                   />
                 </div>
-                <h3 className="font-medium text-lg">Dr. Nombre Apellido</h3>
-                <p className="text-primary mb-2">Especialidad</p>
+                <h3 className="font-medium text-lg">{person.name}</h3>
+                <p className="text-primary mb-2">{person.role}</p>
                 <p className="text-muted-foreground text-sm">
-                  Breve descripción del profesional, su experiencia y especialización.
+                  Profesional con amplia experiencia en el área de {person.role.toLowerCase()}, especializado en rehabilitación y tratamiento personalizado.
                 </p>
               </div>
             ))}
@@ -143,11 +174,11 @@ export default function AcercaDeNosotrosPage() {
             </div>
             <div className="md:w-1/2">
               <Image
-                src="/placeholder.svg?height=300&width=500&text=Instalaciones"
+                src="https://images.unsplash.com/photo-1570174006382-285d0494242f?q=80&w=2070&auto=format&fit=crop"
                 alt="Instalaciones de RFA"
                 width={500}
                 height={300}
-                className="rounded-lg w-full h-auto"
+                className="rounded-lg w-full h-auto object-cover aspect-[5/3]"
               />
             </div>
           </div>
