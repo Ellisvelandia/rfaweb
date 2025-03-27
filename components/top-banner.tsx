@@ -5,10 +5,10 @@ export default function TopBanner() {
     <div className="bg-white py-2 text-center">
       <div className="container-custom flex justify-center items-center">
         <p className="text-sm md:text-base">
-          Comienza tu <span className="font-bold text-primary">Prueba Gratuita de 7 Días</span>
+          Descubre <span className="font-bold text-primary">Rehabilitación por Especialistas</span>
         </p>
         <Link
-          href="/registro"
+          href="/contacto"
           className="ml-4 bg-primary text-white text-sm font-medium px-4 py-1 rounded-full hover:bg-primary/90 transition-colors uppercase"
         >
           Comenzar Hoy

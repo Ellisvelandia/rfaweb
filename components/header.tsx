@@ -4,8 +4,9 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Search, User, ShoppingBag } from "lucide-react"
+import { Menu } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { Icon } from "@iconify/react"
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -41,7 +42,8 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="left" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col gap-4 mt-8">
-                <Link href="/" className="text-lg font-medium transition-colors hover:text-primary">
+                <Link href="/" className="text-lg font-medium transition-colors hover:text-primary flex items-center gap-2">
+                  <Icon icon="mdi:home" className="h-5 w-5" />
                   RFA
                 </Link>
                 <Link href="/servicios" className="text-lg font-medium transition-colors hover:text-primary">
@@ -53,19 +55,14 @@ export default function Header() {
                 <Link href="/actualidad" className="text-lg font-medium transition-colors hover:text-primary">
                   Contenido
                 </Link>
-                <Link href="/tienda" className="text-lg font-medium transition-colors hover:text-primary">
-                  Tienda
-                </Link>
-                <Link href="/programas" className="text-lg font-medium transition-colors hover:text-primary">
-                  Programas
-                </Link>
-                <Link href="/quiz" className="text-lg font-medium transition-colors hover:text-primary">
-                  Quiz
+                <Link href="/contacto" className="text-lg font-medium transition-colors hover:text-primary">
+                  Contacto
                 </Link>
               </nav>
             </SheetContent>
           </Sheet>
           <Link href="/" className="flex items-center gap-2">
+            <Icon icon="mdi:home" className="h-5 w-5 text-white" />
             <span className="text-xl font-bold">
               <span className="text-primary">[R]</span>FA
             </span>
@@ -90,38 +87,14 @@ export default function Header() {
           >
             Contenido
           </Link>
-          <Link
-            href="/tienda"
-            className={`text-sm font-medium transition-colors hover:text-primary ${isActive("/tienda") ? "text-primary" : ""}`}
-          >
-            Tienda
-          </Link>
-          <Link
-            href="/programas"
-            className={`text-sm font-medium transition-colors hover:text-primary ${isActive("/programas") ? "text-primary" : ""}`}
-          >
-            Programas
-          </Link>
-          <Link
-            href="/quiz"
-            className="bg-primary text-white text-sm font-medium px-4 py-1 rounded-full hover:bg-primary/90 transition-colors"
-          >
-            Quiz
-          </Link>
         </nav>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="text-white">
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Buscar</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-white">
-            <User className="h-5 w-5" />
-            <span className="sr-only">Cuenta</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-white">
-            <ShoppingBag className="h-5 w-5" />
-            <span className="sr-only">Carrito</span>
-          </Button>
+        <div className="flex items-center">
+          <Link 
+            href="/contacto"
+            className="text-sm font-medium bg-primary text-white px-4 py-1.5 rounded-full hover:bg-primary/90 transition-colors"
+          >
+            Contacto
+          </Link>
         </div>
       </div>
     </header>

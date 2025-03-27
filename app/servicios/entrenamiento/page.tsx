@@ -235,13 +235,7 @@ export default function EntrenamientoPage() {
           </div>
         </div>
 
-        <div className="mt-12 flex justify-between">
-          <Button asChild variant="ghost" className="flex items-center gap-2">
-            <Link href="/servicios/programas">
-              <ArrowLeft className="h-4 w-4" />
-              Programas
-            </Link>
-          </Button>
+        <div className="mt-12 flex justify-end">
           <Button asChild variant="ghost" className="flex items-center gap-2">
             <Link href="/servicios/nutricion">
               Nutrición

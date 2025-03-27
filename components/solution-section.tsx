@@ -69,8 +69,8 @@ export default function SolutionSection() {
               </div>
             </div>
 
-            <Link href="/registro" className="btn-primary inline-block text-center px-8 py-3">
-              Comienza tu Prueba Gratuita de 7 Días
+            <Link href="/contacto" className="btn-primary inline-block text-center px-8 py-3">
+              Consulta con Nuestros Especialistas
             </Link>
           </div>
         </div>

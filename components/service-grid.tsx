@@ -27,8 +27,8 @@ export default function ServiceGrid() {
                 Los programas son actividades especiales o direccionadas según la necesidad y condición física del
                 paciente.
               </CardDescription>
-              <Link href="/servicios/programas" className="text-primary hover:underline mt-4 inline-block">
-                Más información
+              <Link href="/contacto" className="text-primary hover:underline mt-4 inline-block">
+                Contactar
               </Link>
             </CardContent>
           </Card>

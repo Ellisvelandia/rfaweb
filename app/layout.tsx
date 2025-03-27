@@ -5,6 +5,9 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import './globals.css'
+import GroqChatbot from "@/components/groq-chatbot"
+import WhatsAppButton from "@/components/whatsapp-button"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -45,6 +48,8 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
           <Footer />
         </ThemeProvider>
+        <GroqChatbot />
+        <WhatsAppButton />
       </body>
     </html>
   )
@@ -52,4 +57,4 @@ export default function RootLayout({
 
 
 
-import './globals.css'
+

@@ -25,8 +25,8 @@ export default function Hero() {
           para tomar control de tu salud.
         </p>
 
-        <Link href="/registro" className="btn-primary text-base md:text-lg px-8 py-3">
-          Comienza tu Prueba Gratuita de 7 Días
+        <Link href="/contacto" className="btn-primary text-base md:text-lg px-8 py-3">
+          Recupera Tu Bienestar Físico Hoy
         </Link>
       </div>
     </div>

@@ -4,8 +4,6 @@ import ProblemSection from "@/components/problem-section"
 import SolutionSection from "@/components/solution-section"
 import TestimonialsSection from "@/components/testimonials-section"
 import CTASection from "@/components/cta-section"
-import GroqChatbot from "@/components/groq-chatbot"
-import WhatsAppButton from "@/components/whatsapp-button"
 
 export default function Home() {
   return (
@@ -16,8 +14,6 @@ export default function Home() {
       <SolutionSection />
       <TestimonialsSection />
       <CTASection />
-      <GroqChatbot />
-      <WhatsAppButton />
     </>
   )
 }
