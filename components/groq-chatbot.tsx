@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { MessageCircle, Send, X } from "lucide-react"
+import { Icon } from "@iconify/react"
 
 type Message = {
   text: string
@@ -17,6 +18,9 @@ type Message = {
 export default function GroqChatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState("")
+  const [showPrompt, setShowPrompt] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
+  const [hasShownInitialPrompt, setHasShownInitialPrompt] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       text: "¡Hola! Soy el asistente virtual de RFA, especialista en recuperación física y acondicionamiento. ¿En qué puedo ayudarte hoy?",
@@ -32,6 +36,50 @@ export default function GroqChatbot() {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [messages])
+
+  // Initial popup that shows once per page load
+  useEffect(() => {
+    if (!isOpen && !hasShownInitialPrompt) {
+      // Show popup after 3 seconds
+      const showTimer = setTimeout(() => {
+        setShowPrompt(true);
+        setHasShownInitialPrompt(true);
+      }, 3000);
+      
+      // Hide popup after 8 seconds (5 seconds of display time)
+      const hideTimer = setTimeout(() => {
+        if (!isHovering) {
+          setShowPrompt(false);
+        }
+      }, 8000);
+      
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+      }
+    } else if (isOpen) {
+      // Always hide prompt when chat is open
+      setShowPrompt(false);
+    }
+  }, [isOpen, hasShownInitialPrompt, isHovering]);
+
+  // Handle mouse hover on button to show prompt
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    if (!isOpen && hasShownInitialPrompt) {
+      setShowPrompt(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    // Only hide prompt if it's not the initial prompt display
+    if (hasShownInitialPrompt && !isOpen) {
+      setTimeout(() => {
+        setShowPrompt(false);
+      }, 1500); // Hide after 1.5 seconds when mouse leaves
+    }
+  };
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -92,35 +140,32 @@ export default function GroqChatbot() {
 
   return (
     <>
-      <Button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 p-0 bg-primary text-white shadow-lg hover:bg-primary/90 transition-colors"
-        aria-label="Abrir chat"
-      >
-        <MessageCircle className="h-6 w-6" />
-      </Button>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        {showPrompt && !isOpen && (
+          <div className="mb-3 bg-white rounded-lg shadow-lg p-4 max-w-[200px] animate-fade-in relative">
+            <div className="absolute bottom-[-8px] right-6 w-4 h-4 bg-white transform rotate-45"></div>
+            <p className="text-sm font-medium">¿Necesitas ayuda? ¡Pregúntame!</p>
+          </div>
+        )}
+        <Button
+          onClick={() => {
+            setIsOpen(true);
+            setShowPrompt(false);
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="rounded-full h-14 w-14 p-0 bg-primary text-white shadow-lg hover:bg-primary/90 transition-colors"
+          aria-label="Abrir chat"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </Button>
+      </div>
 
       {isOpen && (
         <Card className="fixed bottom-6 right-6 z-50 w-[350px] sm:w-[400px] shadow-lg border border-gray-200">
           <CardHeader className="bg-primary text-white py-4 flex flex-row items-center justify-between">
             <CardTitle className="text-lg flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 8V4H8" />
-                <rect x="2" y="2" width="20" height="8" rx="2" />
-                <path d="M2 12h20" />
-                <path d="M2 16h20" />
-                <path d="M2 20h20" />
-              </svg>
+              <Icon icon="mdi:robot" width="24" height="24" />
               Asistente RFA
             </CardTitle>
             <Button
