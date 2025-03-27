@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { Icon } from "@iconify/react"
@@ -41,6 +41,10 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+              <SheetTitle>Menú de navegación</SheetTitle>
+              <SheetDescription>
+                Navega a las diferentes secciones del sitio
+              </SheetDescription>
               <nav className="flex flex-col gap-4 mt-8">
                 <Link href="/" className="text-lg font-medium transition-colors hover:text-primary flex items-center gap-2">
                   <Icon icon="mdi:home" className="h-5 w-5" />
