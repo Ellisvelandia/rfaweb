@@ -48,9 +48,7 @@ export default function GroqChatbot() {
       
       // Hide popup after 8 seconds (5 seconds of display time)
       const hideTimer = setTimeout(() => {
-        if (!isHovering) {
-          setShowPrompt(false);
-        }
+        setShowPrompt(false);
       }, 8000);
       
       return () => {
@@ -61,24 +59,34 @@ export default function GroqChatbot() {
       // Always hide prompt when chat is open
       setShowPrompt(false);
     }
-  }, [isOpen, hasShownInitialPrompt, isHovering]);
+  }, [isOpen, hasShownInitialPrompt]);
+
+  // Force hide popup if not hovering for 2 seconds
+  useEffect(() => {
+    let hideTimer: NodeJS.Timeout;
+    
+    if (!isHovering && showPrompt && !isOpen) {
+      hideTimer = setTimeout(() => {
+        setShowPrompt(false);
+      }, 2000);
+    }
+    
+    return () => {
+      if (hideTimer) clearTimeout(hideTimer);
+    };
+  }, [isHovering, showPrompt, isOpen]);
 
   // Handle mouse hover on button to show prompt
   const handleMouseEnter = () => {
     setIsHovering(true);
-    if (!isOpen && hasShownInitialPrompt) {
+    // Always show popup on hover regardless of previous state
+    if (!isOpen) {
       setShowPrompt(true);
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-    // Only hide prompt if it's not the initial prompt display
-    if (hasShownInitialPrompt && !isOpen) {
-      setTimeout(() => {
-        setShowPrompt(false);
-      }, 1500); // Hide after 1.5 seconds when mouse leaves
-    }
   };
 
   const handleSendMessage = async (e: React.FormEvent) => {
@@ -142,7 +150,11 @@ export default function GroqChatbot() {
     <>
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         {showPrompt && !isOpen && (
-          <div className="mb-3 bg-white rounded-lg shadow-lg p-4 max-w-[200px] animate-fade-in relative">
+          <div 
+            className="mb-3 bg-white rounded-lg shadow-lg p-4 max-w-[200px] animate-fade-in relative"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="absolute bottom-[-8px] right-6 w-4 h-4 bg-white transform rotate-45"></div>
             <p className="text-sm font-medium">¿Necesitas ayuda? ¡Pregúntame!</p>
           </div>
